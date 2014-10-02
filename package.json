@@ -1,0 +1,37 @@
+{
+  "name": "ezel-assets",
+  "version": "0.0.1",
+  "description": "A tiny CLI to take a folder of stylus & browserify files, iterate through them running transforms, and spit them out to another folder.",
+  "keywords": [
+    "assets",
+    "ezel",
+    "browserify",
+    "stylus"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/artsy/ezel-assets.git"
+  },
+  "author": {
+    "name": "Craig Spaeth",
+    "email": "craigspaeth@gmail.com",
+    "url": "http://craigspaeth.com"
+  },
+  "engines": {
+    "node": ">= 0.10.x"
+  },
+  "scripts": {
+    "test": "mocha test/index"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*",
+    "stylus": "0.47.x",
+    "nib": "*",
+    "sqwish": "*",
+    "browserify": "*",
+    "jadeify": "*",
+    "uglifyify": "*",
+    "caching-coffeeify": "*"
+  }
+}
