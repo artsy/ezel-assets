@@ -1,5 +1,7 @@
 var fs = require('fs'),
-    path = require('path');
+    path = require('path'),
+    stylus = require('stylus'),
+    browserify = require('browserify');
 
 var errExit = function(err) {
   if (err) {
@@ -18,10 +20,7 @@ module.exports = function(assetsDir, publicDir) {
   fs.readdirSync(assetsDir).forEach(function(file) {
 
     // Browserify + Transforms
-    var browserify = null;
-    try { var browserify = require('browserify'); } catch (e) {};
-    if (browserify &&
-        path.extname(file) == '.js' || path.extname(file) == '.coffee') {
+    if (path.extname(file) == '.js' || path.extname(file) == '.coffee') {
       var b = browserify().add(assetsDir + file);
       try { b.transform(require('caching-coffeeify')) } catch (e) {};
       try { b.transform(require('jadeify')) } catch (e) {};
@@ -33,8 +32,6 @@ module.exports = function(assetsDir, publicDir) {
     }
 
     // Stylus + Sqwish
-    var stylus = null;
-    try { var stylus = require('stylus'); } catch (e) {};
     if (stylus && path.extname(file) == '.styl') {
       stylus.render(fs.readFileSync(assetsDir + file).toString(), {
         filename: assetsDir + file
