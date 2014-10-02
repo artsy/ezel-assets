@@ -18,6 +18,7 @@ module.exports = function(assetsDir, publicDir) {
   fs.readdirSync(assetsDir).forEach(function(file) {
 
     // Browserify + Transforms
+    var browserify = null;
     try { var browserify = require('browserify'); } catch (e) {};
     if (browserify &&
         path.extname(file) == '.js' || path.extname(file) == '.coffee') {
@@ -32,6 +33,7 @@ module.exports = function(assetsDir, publicDir) {
     }
 
     // Stylus + Sqwish
+    var stylus = null;
     try { var stylus = require('stylus'); } catch (e) {};
     if (stylus && path.extname(file) == '.styl') {
       stylus.render(fs.readFileSync(assetsDir + file).toString(), {
