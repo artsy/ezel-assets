@@ -24,8 +24,7 @@
     "test": "mocha test/index"
   },
   "dependencies": {
-    "async": "*",
-    "commander": "*"
+    "async": "*"
   },
   "devDependencies": {
     "mocha": "*",
