@@ -4,8 +4,8 @@ var exec = require('child_process').exec,
 describe('ezel-assets', function() {
 
   beforeEach(function(done) {
-    exec('rm -rf test/assets/public', function(err) {
-      exec('mkdir -p test/assets/public', function(err) {
+    exec('rm -rf public/assets', function(err) {
+      exec('mkdir -p public/assets', function(err) {
         done(err);
       });
     });
@@ -13,9 +13,9 @@ describe('ezel-assets', function() {
 
   it('generates CSS assets', function(done) {
     exec(
-      'node bin/ezel-assets.js test/assets/ test/public/assets/',
+      'node bin/ezel-assets.js',
       function(err, stdout, stderr) {
-        fs.readFileSync(__dirname + '/public/assets/foo.css').toString()
+        fs.readFileSync(process.cwd() + '/public/assets/foo.css').toString()
           .should.equal('h1{color:#00f}body{color:#f00}');
         done();
       }
@@ -24,10 +24,21 @@ describe('ezel-assets', function() {
 
   it('generates JS assets', function(done) {
     exec(
-      'node bin/ezel-assets.js test/assets/ test/public/assets/',
+      'node bin/ezel-assets.js',
       function(err, stdout, stderr) {
-        fs.readFileSync(__dirname + '/public/assets/bar.js').toString()
+        fs.readFileSync(process.cwd() + '/public/assets/bar.js').toString()
           .should.containEql('MODULE_NOT_FOUND');
+        done();
+      }
+    )
+  });
+
+  it('generates gzipped assets', function(done) {
+    exec(
+      'node bin/ezel-assets.js',
+      function(err, stdout, stderr) {
+        fs.readFileSync(process.cwd() + '/public/assets/bar.js.jgz').toString()
+          .length.should.be.above(100);
         done();
       }
     )
