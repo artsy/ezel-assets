@@ -7,7 +7,8 @@ var assetsDir,
     ezelAssets = require('../');
 
 // Defaults
-['caching-coffeeify', 'uglifyify', 'jadeify', 'coffeeify'].forEach(function(t) {
+['caching-coffeeify', 'uglifyify', 'jadeify', 'coffeeify', 'deamdify',
+  'cssify'].forEach(function(t) {
   if(transforms.indexOf(t) < 0) transforms.push(t)
 });
 assetsDir = process.argv[2] ?
