@@ -1,6 +1,6 @@
 {
   "name": "ezel-assets",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A tiny CLI to take a folder of stylus & browserify files, iterate through them running transforms, and spit them out to another folder.",
   "keywords": [
     "assets",
@@ -8,6 +8,9 @@
     "browserify",
     "stylus"
   ],
+  "bin": {
+    "ezel-assets": "./bin/ezel-assets.js"
+  },
   "repository": {
     "type": "git",
     "url": "http://github.com/artsy/ezel-assets.git"
