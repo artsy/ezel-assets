@@ -11,7 +11,7 @@ ezel-assets assets/ public/assets/ caching-coffeify,uglifyify,jadeify,coffeify
 Or just assuming the defaults above
 
 ```
-
+ezel-assets
 ```
 
 ## Dependencies
