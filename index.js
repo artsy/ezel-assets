@@ -11,6 +11,7 @@ module.exports = function(options, callback) {
   // Find the source files
   fs.readdir(assetsDir, function(err, files) {
     if (err) return callback(err);
+    // TODO: Fork a worker using cluster for every file
     async.map(files, function(file, cb) {
 
       // Browserify + Transforms
@@ -18,12 +19,14 @@ module.exports = function(options, callback) {
         || path.extname(file) == '.coffee') {
         var start = new Date().getTime();
         console.log('Bundling ' + file + '...');
+        // TODO: Use these options in development/test only
         var b = browserify({
           insertGlobals: true,
           noParse: ['jquery'].map(function(lib) {
             return require.resolve(lib);
           })
         }).add(assetsDir + file);
+        // TODO: Skip uglifify in development/test
         options.transforms.forEach(function(transform) {
           try { b.transform(require(transform)) } catch (e) {};
         });
@@ -63,6 +66,7 @@ module.exports = function(options, callback) {
 }
 
 var gzipAsWell = function(src, fname, gext, out, callback) {
+  // TODO: Skip gzip in development/test
   gzip(src, function(err, buf) {
     if (err) return cb(err);
     async.parallel([
