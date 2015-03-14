@@ -1,31 +1,56 @@
 #!/usr/bin/env node
 
-var assetsDir,
-    publicDir,
-    transforms = process.argv[4] && process.argv[4].split(',') || [],
-    start = new Date().getTime(),
-    ezelAssets = require('../');
+var cluster = require('cluster'),
+    assetsDir = process.cwd() + '/assets/',
+    publicDir = process.cwd() + '/public/assets/';;
 
-// Defaults
-['caching-coffeeify', 'coffeeify', 'jadeify', 'deamdify', 'cssify',
-  'uglifyify'].forEach(function(t) {
-  if(transforms.indexOf(t) < 0) transforms.push(t)
-});
-assetsDir = process.argv[2] ?
-  process.cwd() + '/' + process.argv[2] : process.cwd() + '/assets/';
-publicDir = process.argv[3] ?
-  process.cwd() + '/' + process.argv[3] : process.cwd() + '/public/assets/';
+var chunk = function(array, chunkSize) {
+  return [].concat.apply([], array.map(function(el, i) {
+    return i % chunkSize ? [] : [array.slice(i, i + chunkSize)]
+  }));
+}
 
-// Start the generating
-console.log('Generating assets. ' + assetsDir + ' to ' + publicDir  + '...');
-ezelAssets({
-  assetsDir: assetsDir,
-  publicDir: publicDir,
-  transforms: transforms
-}, function(err) {
-  if (err) {
-    console.error('Error with generating assets: ' + err);
-    return process.exit(1);
-  }
-  console.log('Finished in ' + (new Date().getTime() - start) + 'ms');
-});
+// Master
+if (cluster.isMaster) {
+    var fs = require('fs'),
+        cpuCount = require('os').cpus().length,
+        start = new Date().getTime(),
+        workerFinishedCount = 0;
+
+    console.log('Generating assets. ' + assetsDir + ' to ' + publicDir  + '...');
+
+    // Get the files in the assetDir and split the processing by number of cpus
+    fs.readdir(assetsDir, function(err, files) {
+      var chunks = chunk(files, Math.ceil(files.length / cpuCount));
+      chunks.forEach(function(chunk) {
+        cluster.fork({ FILES: chunk.join(',') });
+      });
+    });
+
+    // Listen for dying workers
+    cluster.on('exit', function (worker) {
+      workerFinishedCount++
+      if (workerFinishedCount == cpuCount) {
+        console.log('Finished in ' + (new Date().getTime() - start) + 'ms');
+        process.exit();
+      }
+    });
+
+// Worker
+} else {
+  var ezelAssets = require('../');
+  ezelAssets({
+    files: process.env.FILES.split(','),
+    assetsDir: assetsDir,
+    publicDir: publicDir,
+    transforms: ['caching-coffeeify', 'coffeeify', 'jadeify', 'deamdify',
+      'cssify', 'uglifyify']
+  }, function(err) {
+    if (err) {
+      console.error('Error generating assets: ' + err);
+      process.exit(1);
+    } else {
+      process.exit();
+    }
+   });
+}

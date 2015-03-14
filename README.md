@@ -11,8 +11,18 @@ ezel-assets assets/ public/assets/ caching-coffeify,uglifyify,jadeify,coffeify
 Or just assuming the defaults above
 
 ```
-ezel-assets
+
 ```
+
+## Dependencies
+
+To keep things consistent ezel-assets uses your app's dependencies. It's recommended to have the following dependencies installed.
+
+* stylus
+* sqwish
+* browserify
+* uglififiy
+* Any other browserify transforms necessary to your app.
 
 ## Contributing
 
