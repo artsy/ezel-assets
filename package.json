@@ -38,6 +38,8 @@
     "browserify": "*",
     "jadeify": "*",
     "uglifyify": "*",
-    "caching-coffeeify": "*"
+    "caching-coffeeify": "*",
+    "jquery": "*",
+    "threejs": "*"
   }
 }
