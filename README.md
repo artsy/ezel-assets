@@ -1,6 +1,6 @@
 # ezel-assets
 
-A convetion over config CLI to take a folder of stylus & browserify files, iterate through them running transforms, minification, gzip, and spit them out to another folder. Used as a task in production deploys at Artsy, but maybe useful outside of that as well. Uses your app's dependencies so make sure to specify `"browserify":"*", "stylus":"*"` in your package.json.
+A convention over config CLI to take a folder of stylus & browserify files, iterate through them running transforms, minification, gzip, and spit them out to another folder. Used as a task in production deploys at Artsy, but maybe useful outside of that as well. Uses your app's dependencies so make sure to specify `"browserify":"*", "stylus":"*"` in your package.json.
 
 ## Example
 
