@@ -13,14 +13,18 @@ if (cluster.isMaster) {
         assetsDir,
         publicDir,
         transforms = process.argv[4] && process.argv[4].split(',') || [],
+        globalTransforms = process.argv[5] && process.argv[5].split(',') || [],
         cpuCount = require('os').cpus().length,
         start = new Date().getTime(),
         workerFinishedCount = 0;
 
     // Defaults
-    ['caching-coffeeify', 'coffeeify', 'jadeify', 'deamdify', 'cssify',
+    ['caching-coffeeify', 'coffeeify', 'jadeify', 'cssify',
       'uglifyify'].forEach(function(t) {
       if(transforms.indexOf(t) < 0) transforms.push(t)
+    });
+    [ 'deamdify'].forEach(function(t) {
+      if(globalTransforms.indexOf(t) < 0) globalTransforms.push(t)
     });
     assetsDir = process.argv[2] ?
       process.cwd() + '/' + process.argv[2] : process.cwd() + '/assets/';
@@ -36,7 +40,8 @@ if (cluster.isMaster) {
           FILES: chunk.join(','),
           ASSETS_DIR: assetsDir,
           PUBLIC_DIR: publicDir,
-          TRANSFORMS: transforms.join(',')
+          TRANSFORMS: transforms.join(','),
+          GLOBAL_TRANSFORMS: globalTransforms.join(',')
         });
       });
     });
@@ -57,7 +62,8 @@ if (cluster.isMaster) {
     files: process.env.FILES.split(','),
     assetsDir: process.env.ASSETS_DIR,
     publicDir: process.env.PUBLIC_DIR,
-    transforms: process.env.TRANSFORMS.split(',')
+    transforms: process.env.TRANSFORMS.split(','),
+    globalTransforms: process.env.GLOBAL_TRANSFORMS.split(',')
   }, function(err) {
     if (err) {
       console.error('Error generating assets: ' + err);
