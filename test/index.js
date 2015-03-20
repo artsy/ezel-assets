@@ -43,5 +43,4 @@ describe('ezel-assets', function() {
       }
     )
   });
-
 });

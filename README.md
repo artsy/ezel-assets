@@ -5,7 +5,7 @@ A convention over config CLI to take a folder of stylus & browserify files, iter
 ## Example
 
 ````
-ezel-assets assets/ public/assets/ caching-coffeify,uglifyify,jadeify,coffeify
+ezel-assets assets/ public/assets/ caching-coffeeify,uglifyify,jadeify,coffeeify deamdify
 ````
 
 Or just assuming the defaults above
