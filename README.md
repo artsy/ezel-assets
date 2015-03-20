@@ -24,6 +24,10 @@ To keep things consistent ezel-assets uses your app's dependencies. It's recomme
 * uglififiy
 * Any other browserify transforms necessary to your app.
 
+## Todos
+
+* Optimize settings in dev/test to make assets build faster for integration testing
+
 ## Contributing
 
 Please fork the project and submit a pull request with tests. Install node modules `npm install` and run tests with `npm test`.
