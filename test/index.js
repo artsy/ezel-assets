@@ -43,4 +43,14 @@ describe('ezel-assets', function() {
       }
     )
   });
+
+  it('exits with 1 for a failed compile', function(done) {
+    exec(
+      'node bin/ezel-assets.js fail/',
+      function(err, stderr) {
+        err.code.should.equal(1);
+        done();
+      }
+    )
+  });
 });
