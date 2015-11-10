@@ -48,6 +48,7 @@ if (cluster.isMaster) {
 
     // Finish after all workers exit
     cluster.on('exit', function (worker) {
+      if (worker.process.exitCode == 1) return process.exit(1);
       workerFinishedCount++
       if (workerFinishedCount == cpuCount) {
         console.log('Finished in ' + (new Date().getTime() - start) + 'ms');
