@@ -48,6 +48,7 @@ describe('ezel-assets', function() {
     exec(
       'node bin/ezel-assets.js fail/',
       function(err, stderr) {
+        console.log(err, stderr)
         err.code.should.equal(1);
         done();
       }
