@@ -17,7 +17,7 @@ describe('ezel-assets', function() {
       function(err, stdout, stderr) {
         fs.readFileSync(process.cwd() + '/public/assets/foo.css').toString()
           .should.equal('h1{color:#00f}body{color:#f00}');
-        done();
+        done(err);
       }
     )
   });
@@ -28,7 +28,7 @@ describe('ezel-assets', function() {
       function(err, stdout, stderr) {
         fs.readFileSync(process.cwd() + '/public/assets/bar.js').toString()
           .should.containEql('MODULE_NOT_FOUND');
-        done();
+        done(err);
       }
     )
   });
@@ -39,7 +39,18 @@ describe('ezel-assets', function() {
       function(err, stdout, stderr) {
         fs.readFileSync(process.cwd() + '/public/assets/bar.js.jgz').toString()
           .length.should.be.above(100);
-        done();
+        done(err);
+      }
+    )
+  });
+
+  it('uglifies the full bundle', function(done) {
+    exec(
+      'node bin/ezel-assets.js',
+      function(err, stdout, stderr) {
+        fs.readFileSync(process.cwd() + '/public/assets/foo.js').toString()
+        .should.not.containEql("\n");
+        done(err);
       }
     )
   });
