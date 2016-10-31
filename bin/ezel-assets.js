@@ -19,7 +19,7 @@ if (cluster.isMaster) {
       workerFinishedCount = 0;
 
   // Defaults
-  ['caching-coffeeify', 'jadeify', 'cssify', 'uglifyify'].forEach(function(t) {
+  ['caching-coffeeify', 'babelify', 'jadeify', 'cssify', 'uglifyify'].forEach(function(t) {
     if(transforms.indexOf(t) < 0) transforms.push(t)
   });
   [ 'deamdify'].forEach(function(t) {
