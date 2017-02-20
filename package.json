@@ -1,6 +1,6 @@
 {
   "name": "ezel-assets",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "A tiny CLI to take a folder of stylus & browserify files, iterate through them running transforms, and spit them out to another folder.",
   "keywords": [
     "assets",
@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "async": "^1.5.0",
+    "babel-runtime": "^6.23.0",
     "uglify-js": "^2.6.2"
   },
   "devDependencies": {
