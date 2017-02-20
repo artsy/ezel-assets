@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "async": "^1.5.0",
+    "babel-runtime": "^6.23.0",
     "uglify-js": "^2.6.2"
   },
   "devDependencies": {
