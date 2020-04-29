@@ -35,7 +35,7 @@
     "browserify": "^12.0.1",
     "caching-coffeeify": "^0.5.1",
     "jadeify": "^4.5.0",
-    "jquery": "^2.1.4",
+    "jquery": "^3.5.0",
     "mocha": "^2.3.4",
     "nib": "^1.1.0",
     "should": "^8.0.0",
